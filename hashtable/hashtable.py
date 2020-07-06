@@ -22,6 +22,7 @@ class HashTable:
 
     def __init__(self, capacity):
         self.capacity = capacity
+        self.storage = []
 
     def get_num_slots(self):
         """
@@ -85,7 +86,10 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        hash_idx = self.hash_index(key)
+        self.storage[hash_idx] = value
+
+        return
 
     def delete(self, key):
         """
