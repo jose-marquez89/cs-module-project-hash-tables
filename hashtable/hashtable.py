@@ -22,7 +22,7 @@ class HashTable:
 
     def __init__(self, capacity):
         self.capacity = capacity
-        self.storage = []
+        self.storage = [None] * self.capacity
 
     def get_num_slots(self):
         """
@@ -99,7 +99,15 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        hash_idx = self.hash_index(key)
+
+        if not self.storage[hash_idx]:
+            print(f"No key for \"{key}\". Create one first")
+            return
+
+        self.storage[hash_idx] = None
+
+        return
 
     def get(self, key):
         """
@@ -111,7 +119,7 @@ class HashTable:
         """
         hash_idx = self.hash_index(key)
 
-        return self.storage(hash_idx)
+        return self.storage[hash_idx]
 
     def resize(self, new_capacity):
         """
