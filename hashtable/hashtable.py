@@ -145,20 +145,16 @@ class HashTable:
         Implement this.
         """
         hash_idx = self.hash_index(key)
+        new_entry = HashTableEntry(key, value)
 
         if self.storage[hash_idx]:
-            new_entry = HashTableEntry(key, value)
-            tail = self.storage[hash_idx]
-            while tail.next:
-                tail = tail.next
-
-            tail.next = new_entry
+            self.storage[hash_idx].add_entry(new_entry)
 
             return
 
-        self.storage[hash_idx] = HashTableEntry(key, value)
+        self.storage[hash_idx] = LinkedList()
+        self.storage[hash_idx].add_entry(new_entry)
 
-        return
 
     def delete(self, key):
         """
@@ -174,9 +170,8 @@ class HashTable:
             print(f"No key for \"{key}\". Create one first")
             return
 
-        self.storage[hash_idx] = None
+        self.storage[hash_idx].delete_entry(key)
 
-        return
 
     def get(self, key):
         """
@@ -188,6 +183,9 @@ class HashTable:
         """
         hash_idx = self.hash_index(key)
 
+        if self.storage[hash_idx]:
+            return self.storage[hash_idx].retrieve_value(key)
+        
         return self.storage[hash_idx]
 
     def resize(self, new_capacity):
