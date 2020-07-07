@@ -158,7 +158,6 @@ class HashTable:
 
         return hash_
 
-
     def djb2(self, key):
         """
         DJB2 hash, 32-bit
@@ -256,7 +255,6 @@ class HashTable:
         del new_table
 
         return
-
 
 
 if __name__ == "__main__":
