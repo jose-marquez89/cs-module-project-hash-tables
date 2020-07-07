@@ -13,7 +13,7 @@ class LinkedList:
         else:
             tmp = self.end
             tmp.next = entry
-            self.end = tmp
+            self.start = tmp
 
         return
 
@@ -91,6 +91,7 @@ class HashTable:
         else:
             self.capacity = capacity
         self.storage = [None] * self.capacity
+        self.entries = 0
 
     def get_num_slots(self):
         """
@@ -110,7 +111,10 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        n = self.entries
+        k = len(self.storage)
+
+        return n / k
 
     def fnv1(self, key):
         """
@@ -122,14 +126,13 @@ class HashTable:
         offset_basis = 14695981039346656037
         FNV_prime = 1099511628211
 
-        hash = offset_basis
+        hash_ = offset_basis
         for char in key.encode():
-            hash = hash ^ char
-            hash *= FNV_prime
+            hash_ = hash_ ^ char
+            hash_ *= FNV_prime
 
-        return hash
+        return hash_
 
-        # Your code here
 
     def djb2(self, key):
         """
