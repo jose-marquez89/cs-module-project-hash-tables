@@ -1,3 +1,61 @@
+class LinkedList:
+    """
+    Linked list object to hold hash table entries
+    """
+    def __init__(self, start=None, end=None):
+        self.start = start
+        self.end = end
+
+    def add_entry(self, entry):
+        if not self.start:
+            self.start = entry
+            self.end = entry
+        else:
+            tmp = self.end
+            tmp.next = entry
+            self.end = tmp
+
+        return
+
+    def delete_entry(self, key):
+        """Remove a specific entry"""
+        target = self.start
+        while target.key != key:
+            if target.next is None:
+                print("Final entry inspected, key not found.")
+                return
+            prv = target
+            target = target.next
+
+        # if there is only one item in list, set start and end to None
+        if self.start is self.end:
+            self.start = None
+            self.end = None
+
+            return
+
+        if target is self.start:
+            self.start = self.start.next
+
+            return
+
+        if target is self.end:
+            prv.next = None
+            self.end = prv
+
+            return
+
+    def retrieve_value(self, key):
+        """Returns the value of a specific entry"""
+        target = self.start
+        while target.key != key:
+            if target.next is None:
+                print("Key does not exist in list")
+            target = target.next
+
+        return target.value
+
+
 class HashTableEntry:
     """
     Linked List hash table key/value pair
@@ -87,7 +145,18 @@ class HashTable:
         Implement this.
         """
         hash_idx = self.hash_index(key)
-        self.storage[hash_idx] = value
+
+        if self.storage[hash_idx]:
+            new_entry = HashTableEntry(key, value)
+            tail = self.storage[hash_idx]
+            while tail.next:
+                tail = tail.next
+
+            tail.next = new_entry
+
+            return
+
+        self.storage[hash_idx] = HashTableEntry(key, value)
 
         return
 
