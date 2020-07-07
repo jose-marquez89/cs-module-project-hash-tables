@@ -39,3 +39,6 @@ if __name__ == "__main__":
     print(table.get("onetwothree"))
 
     table.delete("bobobo")
+
+    table.put("Ionian", "This is not a note")
+    print(table.get("Ionian"))
