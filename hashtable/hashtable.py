@@ -10,6 +10,7 @@ class LinkedList:
         if not self.start:
             self.start = entry
             self.end = entry
+            return 1
         else:
             # check for existing key
             duplicate = False
@@ -28,23 +29,24 @@ class LinkedList:
                 entry.next = curr
                 self.start = entry
 
-                return
+                return 1
             else:
                 curr.value = entry.value
                 del entry
 
-                return
+                return 0
 
     def delete_entry(self, key):
         """Remove a specific entry"""
         if self.start is None:
             print("List is empty, key cannot exist")
-            return
+            return 0
         target = self.start
         while target.key != key:
+            print(target.key)
             if target.next is None:
                 print("Final entry inspected, key not found.")
-                return
+                return 0
             prv = target
             target = target.next
 
@@ -53,18 +55,23 @@ class LinkedList:
             self.start = None
             self.end = None
 
-            return
+            return 1
 
-        if target is self.start:
+        elif target is self.start:
             self.start = self.start.next
 
-            return
+            return 1
 
-        if target is self.end:
+        elif target is self.end:
             prv.next = None
             self.end = prv
 
-            return
+            return 1
+
+        else:
+            prv.next = target.next
+            del target
+            return 1
 
     def retrieve_value(self, key):
         """Returns the value of a specific entry"""
@@ -121,7 +128,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        return len(self.storage)
 
     def get_load_factor(self):
         """
@@ -179,14 +186,14 @@ class HashTable:
         new_entry = HashTableEntry(key, value)
 
         if self.storage[hash_idx]:
-            self.storage[hash_idx].add_entry(new_entry)
-            self.entries += 1
+            add_quantity = self.storage[hash_idx].add_entry(new_entry)
+            self.entries += add_quantity
 
             return
 
         self.storage[hash_idx] = LinkedList()
-        self.storage[hash_idx].add_entry(new_entry)
-        self.entries += 1
+        add_quantity = self.storage[hash_idx].add_entry(new_entry)
+        self.entries += add_quantity
 
     def delete(self, key):
         """
@@ -202,8 +209,8 @@ class HashTable:
             print(f"No key for \"{key}\". Create one first")
             return
 
-        self.storage[hash_idx].delete_entry(key)
-        self.entries -= 1
+        delete_quantity = self.storage[hash_idx].delete_entry(key)
+        self.entries -= delete_quantity
 
     def get(self, key):
         """
@@ -227,7 +234,29 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        new_table = HashTable(new_capacity)
+
+        for bucket in self.storage:
+            curr = bucket.start
+
+            while curr.next:
+                print(curr.key, curr.value)
+                new_table.put(curr.key, curr.value)
+                curr = curr.next
+
+            new_table.put(curr.key, curr.value)
+            print(curr.key, curr.value)
+
+        tmp = self.storage
+        self.storage = new_table.storage
+        self.capacity = new_capacity
+        self.entries = new_table.entries
+
+        del tmp
+        del new_table
+
+        return
+
 
 
 if __name__ == "__main__":
