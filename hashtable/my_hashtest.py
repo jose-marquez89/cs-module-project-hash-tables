@@ -1,6 +1,6 @@
 from hashtable import HashTable
 
-table = HashTable(10)
+table = HashTable(8)
 
 if __name__ == "__main__":
     table.put("Ionian", "C")
@@ -11,10 +11,16 @@ if __name__ == "__main__":
     table.put("Aeolian", "A")
     table.put("Locrian", "B")
 
+    print("ENTRIES:")
+    print(table.entries)
+
     table.put("Zandalorian", "Z")
     table.put("Xorolydian", "X")
     table.put("Hyrulian", "H")
     table.put("Partypartian", "P")
+
+    print("ENTRIES:")
+    print(table.entries)
 
     print(table.get("Zandalorian"))
     print(table.get("Dorian"))
@@ -24,6 +30,9 @@ if __name__ == "__main__":
     table.delete("Xorolydian")
     table.delete("Hyrulian")
     table.delete("Partypartian")
+
+    print("ENTRIES:")
+    print(table.entries)
 
     print(table.get("Partypartian"))
     print(table.get("Hyrulian"))
@@ -42,3 +51,7 @@ if __name__ == "__main__":
 
     table.put("Ionian", "This is not a note")
     print(table.get("Ionian"))
+
+    print(table.get_load_factor())
+    print(table.get_num_slots())
+    print(table.entries)
