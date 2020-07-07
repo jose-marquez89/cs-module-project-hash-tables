@@ -19,6 +19,9 @@ class LinkedList:
 
     def delete_entry(self, key):
         """Remove a specific entry"""
+        if self.start is None:
+            print("List is empty, key cannot exist")
+            return
         target = self.start
         while target.key != key:
             if target.next is None:
@@ -47,10 +50,14 @@ class LinkedList:
 
     def retrieve_value(self, key):
         """Returns the value of a specific entry"""
+        if not self.start:
+            print("List is empty, key cannot exist")
+            return
         target = self.start
         while target.key != key:
             if target.next is None:
                 print("Key does not exist in list")
+                return
             target = target.next
 
         return target.value
@@ -185,7 +192,7 @@ class HashTable:
 
         if self.storage[hash_idx]:
             return self.storage[hash_idx].retrieve_value(key)
-        
+
         return self.storage[hash_idx]
 
     def resize(self, new_capacity):
