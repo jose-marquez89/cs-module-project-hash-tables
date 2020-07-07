@@ -11,11 +11,29 @@ class LinkedList:
             self.start = entry
             self.end = entry
         else:
-            tmp = self.end
-            tmp.next = entry
-            self.start = tmp
+            # check for existing key
+            duplicate = False
+            curr = self.start
+            while not duplicate:
+                if entry.key == curr.key:
+                    duplicate = True
+                else:
+                    if curr.next:
+                        curr = curr.next
+                    else:
+                        curr = self.start
+                        break
 
-        return
+            if not duplicate:
+                entry.next = curr
+                self.start = entry
+
+                return
+            else:
+                curr.value = entry.value
+                del entry
+
+                return
 
     def delete_entry(self, key):
         """Remove a specific entry"""
@@ -162,11 +180,13 @@ class HashTable:
 
         if self.storage[hash_idx]:
             self.storage[hash_idx].add_entry(new_entry)
+            self.entries += 1
 
             return
 
         self.storage[hash_idx] = LinkedList()
         self.storage[hash_idx].add_entry(new_entry)
+        self.entries += 1
 
     def delete(self, key):
         """
@@ -183,6 +203,7 @@ class HashTable:
             return
 
         self.storage[hash_idx].delete_entry(key)
+        self.entries -= 1
 
     def get(self, key):
         """
