@@ -86,7 +86,10 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        self.capacity = capacity
+        if capacity < MIN_CAPACITY:
+            self.capacity = MIN_CAPACITY
+        else:
+            self.capacity = capacity
         self.storage = [None] * self.capacity
 
     def get_num_slots(self):
@@ -162,7 +165,6 @@ class HashTable:
         self.storage[hash_idx] = LinkedList()
         self.storage[hash_idx].add_entry(new_entry)
 
-
     def delete(self, key):
         """
         Remove the value stored with the given key.
@@ -178,7 +180,6 @@ class HashTable:
             return
 
         self.storage[hash_idx].delete_entry(key)
-
 
     def get(self, key):
         """
