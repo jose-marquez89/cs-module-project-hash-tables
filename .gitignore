@@ -9,3 +9,6 @@ __pycache__
 
 # geany
 *.geany
+
+# notes
+hash_table_notes/
