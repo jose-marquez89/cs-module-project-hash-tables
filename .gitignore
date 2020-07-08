@@ -11,4 +11,4 @@ __pycache__
 *.geany
 
 # notes
-hash_table_notes/
+notes/
