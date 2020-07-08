@@ -9,7 +9,6 @@ def word_count(s):
     pattern = re.compile(r"[^a-zA-Z\'\s]")
     s = re.sub(pattern, "", s)
     s = s.split()
-    print(s)
 
     for word in s:
         if word in cache:
