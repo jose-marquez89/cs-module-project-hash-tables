@@ -4,7 +4,6 @@ import random
 with open("input.txt") as f:
     words = f.read()
 
-# TODO: analyze which words can follow other words
 sequence_cache = {}
 words = words.split()
 
@@ -45,4 +44,3 @@ def print_nonsense(start_list, word_cache):
 if __name__ == "__main__":
     for i in range(5):
         print_nonsense(start, sequence_cache)
-
